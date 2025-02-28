@@ -1,0 +1,4 @@
+name: SilkSpawner
+version: '1.0-SNAPSHOT'
+main: plugin.testing.silkSpawner.SilkSpawner
+api-version: '1.21'
