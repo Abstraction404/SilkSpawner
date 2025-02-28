@@ -5,14 +5,15 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import plugin.testing.silkSpawner.config.SpawnerConfig;
 import plugin.testing.silkSpawner.listener.SpawnerBreakListener;
+import plugin.testing.silkSpawner.listener.TrialSpawnerBreakListener;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-public class EnableCommand implements CommandExecutor
+public class ToggleCommand implements CommandExecutor
 {
+    protected SpawnerBreakListener toggle = new SpawnerBreakListener();
+
     @Override
     public boolean onCommand(
             @Nonnull CommandSender sender,
@@ -20,7 +21,7 @@ public class EnableCommand implements CommandExecutor
             @Nonnull String s,
             String[] args)
     {
-        if (!(sender instanceof Player player))
+        if (!(sender instanceof Player))
         {
             sender.sendMessage(ChatColor.RED + "This is not a player.");
             return true;
@@ -32,16 +33,36 @@ public class EnableCommand implements CommandExecutor
             return true;
         }
 
-        SpawnerBreakListener toggle = new SpawnerBreakListener();
-        boolean state = toggle.getAllowState();
+        toggle.setAllowState(!toggle.getAllowState());
 
+        String output;
 
-        toggle.setAllowState(true);
+        if (toggle.getAllowState())
+        {
+            output = ChatColor.GREEN + String.valueOf(toggle.getAllowState());
+        }
+        else
+        {
+            output = ChatColor.RED + String.valueOf(toggle.getAllowState());
+        }
 
-        //toggle.setAllowState(toggle.getAllowState() ? false : true);
-
-        sender.sendMessage(ChatColor.YELLOW + "Toggle silkSpawner is now set to: " + toggle.getAllowState());
+        sender.sendMessage(ChatColor.YELLOW + "Gamerule silkSpawner is now set to: " + output);
 
         return true;
+
+        //This was a public one (Do not do this, it will fuck you over)
+        //SpawnerBreakListener.allowSilkSpawner = !(SpawnerBreakListener.allowSilkSpawner);
+
+        /*
+        if (SpawnerBreakListener.allowSilkSpawner)
+        {
+            output = ChatColor.GREEN + String.valueOf(SpawnerBreakListener.allowSilkSpawner);
+        }
+        else
+        {
+            output = ChatColor.RED + String.valueOf(SpawnerBreakListener.allowSilkSpawner);
+        }
+        */
+
     }
 }

@@ -2,3 +2,9 @@ name: SilkSpawner
 version: '1.0-SNAPSHOT'
 main: plugin.testing.silkSpawner.SilkSpawner
 api-version: '1.21'
+commands:
+    silkspawner:
+        usage: /silkspawner
+        description: "Toggles silk touch on spawners on/off"
+        permission: silkspawner.admin
+        permission-message: "You do not have permission."
