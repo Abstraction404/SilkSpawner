@@ -15,6 +15,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SpawnEggMeta;
 import plugin.testing.silkSpawner.config.SpawnerConfig;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class TrialSpawnerBreakListener extends SpawnerBreakListener implements Listener
 {
     public TrialSpawnerBreakListener() {}
@@ -47,7 +52,7 @@ public class TrialSpawnerBreakListener extends SpawnerBreakListener implements L
         }
 
         if (!SpawnerConfig.fileGet().
-                getBoolean("enable-silk-touch-spawner"))
+                getBoolean("allow-silk-touch-spawner"))
         {
             return;
         }
@@ -72,11 +77,30 @@ public class TrialSpawnerBreakListener extends SpawnerBreakListener implements L
             return;
         }
 
+        String entitySnapshotAsString = entitySnapshot.getAsString();
+        System.out.println(entitySnapshotAsString);
+
+        Pattern pattern = Pattern.compile("\"(text|color)\"\\s*:\\s*\"([^\"]+)\"");
+        Matcher matcher = pattern.matcher(entitySnapshotAsString);
+
+        Map<String, String> valueMap = new HashMap<>();
+
+        while (matcher.find())
+        {
+            String key = matcher.group(1);
+            String value = matcher.group(2);
+
+            valueMap.put(key, value);
+        }
+
         String entityString = entitySnapshot.getEntityType() + "_SPAWN_EGG";
 
         ItemStack spawnEggItem = new ItemStack(Material.valueOf(entityString));
         SpawnEggMeta spawnEggMeta = (SpawnEggMeta) spawnEggItem.getItemMeta();
         spawnEggMeta.setSpawnedEntity(entitySnapshot);
+        spawnEggMeta.setDisplayName(String.valueOf(ChatColor.valueOf(valueMap.get("color").toUpperCase()))
+                + valueMap.get("text") + ChatColor.RESET + " Spawn Egg");
+        spawnEggItem.setItemMeta(spawnEggMeta);
 
         Item spawnEggDrop = (Item) event.getBlock().getWorld().spawnEntity
                 (
@@ -85,6 +109,5 @@ public class TrialSpawnerBreakListener extends SpawnerBreakListener implements L
                 );
 
         spawnEggDrop.setItemStack(spawnEggItem);
-
     }
 }

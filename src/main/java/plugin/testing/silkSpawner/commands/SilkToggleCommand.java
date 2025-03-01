@@ -31,13 +31,13 @@ public class SilkToggleCommand implements CommandExecutor
         }
 
         SpawnerConfig.fileGet().set(
-                "enable-silk-touch-spawner",
-                !SpawnerConfig.fileGet().getBoolean("enable-silk-touch-spawner")
+                "allow-silk-touch-spawner",
+                !SpawnerConfig.fileGet().getBoolean("allow-silk-touch-spawner")
         );
         SpawnerConfig.fileSave();
         SpawnerConfig.fileReload();
 
-        boolean configState = SpawnerConfig.fileGet().getBoolean("enable-silk-touch-spawner");
+        boolean configState = SpawnerConfig.fileGet().getBoolean("allow-silk-touch-spawner");
 
         String output;
 
