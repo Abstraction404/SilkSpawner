@@ -17,11 +17,7 @@ import plugin.testing.silkSpawner.config.SpawnerConfig;
 
 public class TrialSpawnerBreakListener extends SpawnerBreakListener implements Listener
 {
-
-    public TrialSpawnerBreakListener()
-    {
-        //allowSilkSpawner = false;
-    }
+    public TrialSpawnerBreakListener() {}
 
     @EventHandler @Override
     public void spawnerBreak(BlockBreakEvent event)
@@ -34,8 +30,6 @@ public class TrialSpawnerBreakListener extends SpawnerBreakListener implements L
 
         boolean checkCreative = event.getPlayer().getGameMode() == GameMode.CREATIVE;
         boolean checkSpectator = event.getPlayer().getGameMode() == GameMode.SPECTATOR;
-
-        @Deprecated boolean checkConfigState = SpawnerConfig.fileGet().getBoolean("enable-silk-touch-spawner");
 
         if (!checkSpawner)
         {
@@ -55,7 +49,6 @@ public class TrialSpawnerBreakListener extends SpawnerBreakListener implements L
         if (!SpawnerConfig.fileGet().
                 getBoolean("enable-silk-touch-spawner"))
         {
-            //event.getPlayer().sendMessage("Is " + allowSilkSpawner);
             return;
         }
 

@@ -11,8 +11,6 @@ import javax.annotation.Nonnull;
 
 public class ToggleCommand implements CommandExecutor
 {
-    //protected SpawnerBreakListener toggle = new SpawnerBreakListener();
-
     @Override
     public boolean onCommand(
             @Nonnull CommandSender sender,
@@ -39,13 +37,9 @@ public class ToggleCommand implements CommandExecutor
         SpawnerConfig.fileSave();
         SpawnerConfig.fileReload();
 
-        //SpawnerBreakListener.setAllowState(!SpawnerBreakListener.getAllowState());
-
         boolean configState = SpawnerConfig.fileGet().getBoolean("enable-silk-touch-spawner");
 
         String output;
-
-        //toggle.getAllowState() (deprecated line)
 
         if (configState)
         {
@@ -59,20 +53,5 @@ public class ToggleCommand implements CommandExecutor
         sender.sendMessage(ChatColor.YELLOW + "Gamerule silkSpawner is now set to: " + output);
 
         return true;
-
-        //This was a public one (Do not do this, it will fuck you over)
-        //SpawnerBreakListener.allowSilkSpawner = !(SpawnerBreakListener.allowSilkSpawner);
-
-        /*
-        if (SpawnerBreakListener.allowSilkSpawner)
-        {
-            output = ChatColor.GREEN + String.valueOf(SpawnerBreakListener.allowSilkSpawner);
-        }
-        else
-        {
-            output = ChatColor.RED + String.valueOf(SpawnerBreakListener.allowSilkSpawner);
-        }
-        */
-
     }
 }

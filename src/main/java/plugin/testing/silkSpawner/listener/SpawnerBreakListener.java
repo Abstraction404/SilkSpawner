@@ -13,20 +13,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SpawnEggMeta;
-import org.bukkit.spawner.Spawner;
 import plugin.testing.silkSpawner.config.SpawnerConfig;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Objects;
 
 public class SpawnerBreakListener implements Listener
 {
-    @Deprecated protected static boolean allowSilkSpawner;
-
-    @Deprecated protected static boolean checkConfigState = SpawnerConfig.fileGet().
-            getBoolean("enable-silk-touch-spawner");
-
     final protected ArrayList<Material> pickaxes = new ArrayList<>
             (Arrays.asList
                     (
@@ -39,24 +32,7 @@ public class SpawnerBreakListener implements Listener
                     )
             );
 
-    public SpawnerBreakListener()
-    {
-        //allowSilkSpawner = false;
-    }
-
-
-    @Deprecated
-    public static boolean getAllowState()
-    {
-        return checkConfigState;
-    }
-
-    @Deprecated
-    public static void setAllowState(boolean value)
-    {
-        checkConfigState = value;
-    }
-
+    public SpawnerBreakListener() {}
 
     @EventHandler
     public void spawnerBreak(BlockBreakEvent event)
@@ -88,7 +64,6 @@ public class SpawnerBreakListener implements Listener
         if (!SpawnerConfig.fileGet().
                 getBoolean("enable-silk-touch-spawner"))
         {
-            //event.getPlayer().sendMessage("Is " + checkConfigState);
             return;
         }
 
@@ -125,10 +100,5 @@ public class SpawnerBreakListener implements Listener
                 );
 
         spawnEggDrop.setItemStack(spawnEggItem);
-
-
-        //event.getPlayer().sendMessage(ChatColor.GOLD + "Value in YAML config file: " + ChatColor.AQUA +
-                //SpawnerConfig.fileGet().getBoolean("enable-silk-touch-spawner"));
-
     }
 }
