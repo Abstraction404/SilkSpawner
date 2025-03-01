@@ -45,7 +45,7 @@ public class ToggleCommand implements CommandExecutor
 
         String output;
 
-        //toggle.getAllowState() (deprecated)
+        //toggle.getAllowState() (deprecated line)
 
         if (configState)
         {
