@@ -3,17 +3,22 @@ package plugin.testing.silkSpawner.listener;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.block.CreatureSpawner;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.EntitySnapshot;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SpawnEggMeta;
+import org.bukkit.spawner.Spawner;
 import plugin.testing.silkSpawner.config.SpawnerConfig;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class SpawnerBreakListener implements Listener
 {
@@ -98,6 +103,29 @@ public class SpawnerBreakListener implements Listener
                 );
 
         spawner.setItemStack(new ItemStack(Material.SPAWNER));
+
+        CreatureSpawner spawnerBlock = (CreatureSpawner) event.getBlock().getState();
+        EntitySnapshot entitySnapshot = spawnerBlock.getSpawnedEntity();
+
+        if (entitySnapshot == null)
+        {
+            return;
+        }
+
+        String entityString = entitySnapshot.getEntityType() + "_SPAWN_EGG";
+
+        ItemStack spawnEggItem = new ItemStack(Material.valueOf(entityString));
+        SpawnEggMeta spawnEggMeta = (SpawnEggMeta) spawnEggItem.getItemMeta();
+        spawnEggMeta.setSpawnedEntity(entitySnapshot);
+
+        Item spawnEggDrop = (Item) event.getBlock().getWorld().spawnEntity
+                (
+                      event.getBlock().getLocation().add(0.5, 0.5, 0.5),
+                      EntityType.ITEM
+                );
+
+        spawnEggDrop.setItemStack(spawnEggItem);
+
 
         //event.getPlayer().sendMessage(ChatColor.GOLD + "Value in YAML config file: " + ChatColor.AQUA +
                 //SpawnerConfig.fileGet().getBoolean("enable-silk-touch-spawner"));
