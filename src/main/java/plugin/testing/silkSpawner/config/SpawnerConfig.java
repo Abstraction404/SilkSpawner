@@ -6,6 +6,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 public class SpawnerConfig
 {
@@ -15,8 +16,8 @@ public class SpawnerConfig
     public static void fileSetup()
     {
         file = new File(
-                Bukkit.getServer().getPluginManager().
-                        getPlugin("SilkSpawner").getDataFolder(),
+                Objects.requireNonNull(Bukkit.getServer().getPluginManager().
+                        getPlugin("SilkSpawner")).getDataFolder(),
                 "spawnerconfig.yml"
         );
 

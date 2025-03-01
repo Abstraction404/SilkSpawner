@@ -6,7 +6,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import plugin.testing.silkSpawner.config.SpawnerConfig;
-import plugin.testing.silkSpawner.listener.SpawnerBreakListener;
 
 import javax.annotation.Nonnull;
 
@@ -46,7 +45,7 @@ public class ToggleCommand implements CommandExecutor
 
         String output;
 
-        //toggle.getAllowState() (old one)
+        //toggle.getAllowState() (deprecated)
 
         if (configState)
         {

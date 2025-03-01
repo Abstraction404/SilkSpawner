@@ -17,7 +17,7 @@ import java.util.Arrays;
 
 public class SpawnerBreakListener implements Listener
 {
-    //protected static boolean allowSilkSpawner;
+    @Deprecated protected static boolean allowSilkSpawner;
 
     @Deprecated protected static boolean checkConfigState = SpawnerConfig.fileGet().
             getBoolean("enable-silk-touch-spawner");
