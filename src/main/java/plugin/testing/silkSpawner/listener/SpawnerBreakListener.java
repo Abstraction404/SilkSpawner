@@ -10,13 +10,17 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
+import plugin.testing.silkSpawner.config.SpawnerConfig;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SpawnerBreakListener implements Listener
 {
-    protected static boolean allowSilkSpawner;
+    //protected static boolean allowSilkSpawner;
+
+    @Deprecated protected static boolean checkConfigState = SpawnerConfig.fileGet().
+            getBoolean("enable-silk-touch-spawner");
 
     final protected ArrayList<Material> pickaxes = new ArrayList<>
             (Arrays.asList
@@ -35,15 +39,19 @@ public class SpawnerBreakListener implements Listener
         //allowSilkSpawner = false;
     }
 
-    public boolean getAllowState()
+
+    @Deprecated
+    public static boolean getAllowState()
     {
-        return allowSilkSpawner;
+        return checkConfigState;
     }
 
-    public void setAllowState(boolean value)
+    @Deprecated
+    public static void setAllowState(boolean value)
     {
-        allowSilkSpawner = value;
+        checkConfigState = value;
     }
+
 
     @EventHandler
     public void spawnerBreak(BlockBreakEvent event)
@@ -72,9 +80,10 @@ public class SpawnerBreakListener implements Listener
             return;
         }
 
-        if (!allowSilkSpawner)
+        if (!SpawnerConfig.fileGet().
+                getBoolean("enable-silk-touch-spawner"))
         {
-            //event.getPlayer().sendMessage("Is " + allowSilkSpawner);
+            //event.getPlayer().sendMessage("Is " + checkConfigState);
             return;
         }
 
@@ -89,6 +98,9 @@ public class SpawnerBreakListener implements Listener
                 );
 
         spawner.setItemStack(new ItemStack(Material.SPAWNER));
+
+        //event.getPlayer().sendMessage(ChatColor.GOLD + "Value in YAML config file: " + ChatColor.AQUA +
+                //SpawnerConfig.fileGet().getBoolean("enable-silk-touch-spawner"));
 
     }
 }

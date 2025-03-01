@@ -5,14 +5,14 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import plugin.testing.silkSpawner.config.SpawnerConfig;
 import plugin.testing.silkSpawner.listener.SpawnerBreakListener;
-import plugin.testing.silkSpawner.listener.TrialSpawnerBreakListener;
 
 import javax.annotation.Nonnull;
 
 public class ToggleCommand implements CommandExecutor
 {
-    protected SpawnerBreakListener toggle = new SpawnerBreakListener();
+    //protected SpawnerBreakListener toggle = new SpawnerBreakListener();
 
     @Override
     public boolean onCommand(
@@ -33,17 +33,28 @@ public class ToggleCommand implements CommandExecutor
             return true;
         }
 
-        toggle.setAllowState(!toggle.getAllowState());
+        SpawnerConfig.fileGet().set(
+                "enable-silk-touch-spawner",
+                !SpawnerConfig.fileGet().getBoolean("enable-silk-touch-spawner")
+        );
+        SpawnerConfig.fileSave();
+        SpawnerConfig.fileReload();
+
+        //SpawnerBreakListener.setAllowState(!SpawnerBreakListener.getAllowState());
+
+        boolean configState = SpawnerConfig.fileGet().getBoolean("enable-silk-touch-spawner");
 
         String output;
 
-        if (toggle.getAllowState())
+        //toggle.getAllowState() (old one)
+
+        if (configState)
         {
-            output = ChatColor.GREEN + String.valueOf(toggle.getAllowState());
+            output = ChatColor.GREEN + String.valueOf(configState);
         }
         else
         {
-            output = ChatColor.RED + String.valueOf(toggle.getAllowState());
+            output = ChatColor.RED + String.valueOf(configState);
         }
 
         sender.sendMessage(ChatColor.YELLOW + "Gamerule silkSpawner is now set to: " + output);

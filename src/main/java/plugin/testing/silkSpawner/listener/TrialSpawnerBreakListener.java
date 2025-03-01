@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
+import plugin.testing.silkSpawner.config.SpawnerConfig;
 
 public class TrialSpawnerBreakListener extends SpawnerBreakListener implements Listener
 {
@@ -31,6 +32,8 @@ public class TrialSpawnerBreakListener extends SpawnerBreakListener implements L
         boolean checkCreative = event.getPlayer().getGameMode() == GameMode.CREATIVE;
         boolean checkSpectator = event.getPlayer().getGameMode() == GameMode.SPECTATOR;
 
+        @Deprecated boolean checkConfigState = SpawnerConfig.fileGet().getBoolean("enable-silk-touch-spawner");
+
         if (!checkSpawner)
         {
             return;
@@ -46,7 +49,8 @@ public class TrialSpawnerBreakListener extends SpawnerBreakListener implements L
             return;
         }
 
-        if (!allowSilkSpawner)
+        if (!SpawnerConfig.fileGet().
+                getBoolean("enable-silk-touch-spawner"))
         {
             //event.getPlayer().sendMessage("Is " + allowSilkSpawner);
             return;

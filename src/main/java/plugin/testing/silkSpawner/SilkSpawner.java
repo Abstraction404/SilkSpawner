@@ -15,7 +15,7 @@ public final class SilkSpawner extends JavaPlugin implements Listener {
     public void onEnable()
     {
         SpawnerConfig.fileSetup();
-        SpawnerConfig.fileGet().addDefault("enable-silk-touch-spawner", true);
+        SpawnerConfig.fileGet().addDefault("enable-silk-touch-spawner", false);
         SpawnerConfig.fileGet().options().copyDefaults(true);
         SpawnerConfig.fileSave();
 

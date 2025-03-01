@@ -55,5 +55,6 @@ public class SpawnerConfig
     public static void fileReload()
     {
         fileConfig = YamlConfiguration.loadConfiguration(file);
+
     }
 }
