@@ -9,7 +9,7 @@ import plugin.testing.silkSpawner.config.SpawnerConfig;
 
 import javax.annotation.Nonnull;
 
-public class ToggleCommand implements CommandExecutor
+public class SilkToggleCommand implements CommandExecutor
 {
     @Override
     public boolean onCommand(

@@ -5,6 +5,12 @@ api-version: '1.21'
 commands:
     silkspawner:
         usage: /silkspawner
-        description: "Toggles silk touch on spawners on/off"
+        description: "Toggles silk touch on spawners on/off."
+        permission: silkspawner.admin
+        permission-message: "You do not have permission."
+
+    spawneggbypass:
+        usage: /spawneggbypass
+        description: "Toggles bypassing vanilla spawn egg spawner interaction's behavior."
         permission: silkspawner.admin
         permission-message: "You do not have permission."

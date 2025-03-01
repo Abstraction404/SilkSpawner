@@ -1,8 +1,9 @@
 package plugin.testing.silkSpawner;
 
 import org.bukkit.plugin.java.JavaPlugin;
-import plugin.testing.silkSpawner.commands.ToggleCommand;
+import plugin.testing.silkSpawner.commands.SilkToggleCommand;
 import plugin.testing.silkSpawner.config.SpawnerConfig;
+import plugin.testing.silkSpawner.listener.SpawnEggInsertListener;
 import plugin.testing.silkSpawner.listener.SpawnerBreakListener;
 import plugin.testing.silkSpawner.listener.TrialSpawnerBreakListener;
 
@@ -19,10 +20,11 @@ public final class SilkSpawner extends JavaPlugin
         SpawnerConfig.fileGet().options().copyDefaults(true);
         SpawnerConfig.fileSave();
 
-        Objects.requireNonNull(getCommand("silkspawner")).setExecutor(new ToggleCommand());
+        Objects.requireNonNull(getCommand("silkspawner")).setExecutor(new SilkToggleCommand());
 
         getServer().getPluginManager().registerEvents(new SpawnerBreakListener(), this);
         getServer().getPluginManager().registerEvents(new TrialSpawnerBreakListener(), this);
+        getServer().getPluginManager().registerEvents(new SpawnEggInsertListener(), this);
 
     }
 
